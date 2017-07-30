@@ -2,7 +2,9 @@
   <el-row class="content">
     <el-col :xs="{span:20,offset:2}" :sm="{span:8,offset:8}">
       <span>
-        欢迎：{{name}}！你的待办事项是：
+        欢迎：{{name}}！
+        <el-button type="text" @click="logoutToDo">退出</el-button>
+        你的待办事项是：
       </span>
       <el-input placeholder="请输入待办事项" v-model="todos" @keyup.enter.native="addTodos"></el-input>
       <el-tabs v-model="activeName">
@@ -49,20 +51,8 @@
 </template>
 
 <script>
-
+import jwt from 'jsonwebtoken'
 export default {
-
-  created(){
-    const userInfo = this.getUserInfo();
-    if(userInfo != null){
-      this.id = userInfo.id;
-      this.name = userInfo.name;
-    }else{
-      this.id = '';
-      this.name = ''
-    }
-    this.getTodolist();
-  },
 
   data () {
     return {
@@ -73,6 +63,17 @@ export default {
       count: 0,
       id: ''
     };
+  },
+  created(){
+    const userInfo = this.getUserInfo();
+    if(userInfo != null){
+      this.id = userInfo.id;
+      this.name = userInfo.name;
+    }else{
+      this.id = '';
+      this.name = ''
+    }
+    this.getTodolist();
   },
   computed: {
     Done(){
@@ -99,9 +100,9 @@ export default {
         content: this.todos,
         id: this.id
       }
-      this.$http.post('/api/todolist', obj)
+      this.$http.post('/test/todolistApi?method=add', obj)
         .then((res) => {
-          if(res.status == 200){
+          if(res.data.code === 1000){
             this.$message({
               type: 'success',
               message: '创建成功！'
@@ -117,9 +118,13 @@ export default {
       this.todos = '';
     },
     update(index) {
-      this.$http.put('/api/todolist/'+ this.id + '/' + this.list[index].id + '/' + this.list[index].status)
+      let obj = {
+        id: this.list[index].id,
+        status: !this.list[index].status
+      }
+      this.$http.post('/test/todolistApi?method=update',obj)
         .then((res) => {
-          if(res.status == 200){
+          if(res.data.code === 1000){
             this.$message({
               type: 'success',
               message: '任务状态更新成功！'
@@ -134,9 +139,12 @@ export default {
         })
     },
     remove(index) {
-      this.$http.delete('/api/todolist/'+ this.id + '/' + this.list[index].id)
+      let obj = {
+        id: this.list[index].id
+      }
+      this.$http.post('/test/todolistApi?method=del',obj)
         .then((res) => {
-          if(res.status == 200){
+          if(res.data.code === 1000){
             this.$message({
               type: 'success',
               message: '任务删除成功！'
@@ -151,25 +159,45 @@ export default {
         })
     },
     getUserInfo(){
-      const token = sessionStorage.getItem('demo-token');
-      if(token != null && token != 'null'){
-        // let decode = jwt.verify(token,'vue-koa-demo');
-        // return decode
+      const token = sessionStorage.getItem('token');
+      if(token !== 'null' && token !== null && token !== 'undefined' && token !== undefined){
+        let decode = JSON.parse(jwt.decode(token).sub);
+        return decode
       }else {
         return null
       }
     },
     getTodolist(){
-      this.$http.get('/api/todolist/' + this.id)
+      this.$http.get('/test/todolistApi')
         .then((res) => {
-          if(res.status == 200){
-            this.list = res.data
+          console.log(res)
+          if(res.data.code === 1000){
+            this.list = res.data.data
           }else{
             this.$message.error('获取列表失败！')
           }
         }, (err) => {
           this.$message.error('获取列表失败！')
           console.log(err)
+        })
+    },
+    logoutToDo(){
+      this.$http.get('/test/logoutApi') // 将信息发送给后端
+        .then((res) => {
+          console.log(res);
+          if(res.data.code === 1000){ // 如果成功
+            sessionStorage.setItem('token',null); // 用sessionStorage把token存下来
+            sessionStorage.removeItem('token');
+            this.$message({ // 登录成功，显示提示语
+              type: 'success',
+              message: '退出成功！'
+            });
+            this.$router.push('/') // 进入todolist页面，登录成功
+          }else{
+            this.$message.error(res.data.msg); // 登录失败，显示提示语
+          }
+        }, (err) => {
+            this.$message.error('请求错误！')
         })
     }
   }

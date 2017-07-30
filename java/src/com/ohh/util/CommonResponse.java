@@ -1,9 +1,9 @@
 package com.ohh.util;
 
 public class CommonResponse {
-	private Integer code;	//·µ»ØÂë
-	private String msg;		//·µ»ØÌáÊ¾ĞÅÏ¢
-	private Object data;	//·µ»ØÊı¾İ
+	private Integer code;	//è¿”å›ç 
+	private String msg;		//è¿”å›æç¤ºä¿¡æ¯
+	private Object data;	//è¿”å›æ•°æ®
 	
 	public Integer getCode() {
 		return code;

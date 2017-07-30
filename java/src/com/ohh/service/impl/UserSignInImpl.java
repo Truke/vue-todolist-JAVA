@@ -9,14 +9,14 @@ public class UserSignInImpl implements UserSignIn {
 	UserDao userdao=new UserDaoImpl();
 	
 	@Override
-	public boolean checkIdentity(Users user){
+	public Users checkIdentity(Users user){
 		Users tmp = new Users();
 		String name = user.getUserName();
 		tmp = userdao.getUserInfoByName(name); 
 		if(tmp!=null&&tmp.getPassword().equals(user.getPassword()))
-			return true;
+			return tmp;
 		else
-			return false;
+			return null;
 	}
 	
 	

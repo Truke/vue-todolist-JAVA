@@ -1,6 +1,7 @@
 package com.ohh.model;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 
 @Entity  
@@ -25,6 +26,14 @@ public class Users implements Serializable{
 	private String gender;
 	
 	
+	
+	public Users() {
+		super();
+	}
+	public Users(String userName) {
+		super();
+		this.userName = userName;
+	}
 	public Long getId(){
 		return id;
 	}

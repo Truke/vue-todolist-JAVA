@@ -4,6 +4,6 @@ import com.ohh.model.Users;
 
 public interface UserSignIn {
 	
-	public boolean checkIdentity(Users user);
+	public Users checkIdentity(Users user);
 	
 }

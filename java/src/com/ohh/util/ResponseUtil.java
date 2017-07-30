@@ -8,7 +8,7 @@ import com.alibaba.fastjson.JSON;
 
 public class ResponseUtil {
 	/**
-	 * ÇëÇó·µ»ØÊı¾İ´¦Àí
+	 * è¯·æ±‚è¿”å›æ•°æ®å¤„ç†
 	 * @param res
 	 * @return
 	 */
@@ -17,7 +17,7 @@ public class ResponseUtil {
 	}
 	
 	/**
-	 * ³É¹¦ÇëÇó
+	 * æˆåŠŸè¯·æ±‚
 	 * @param data
 	 * @return
 	 */
@@ -42,7 +42,7 @@ public class ResponseUtil {
 	}
 	
 	/**
-	 * ÇëÇóÅ×³öÒì³£
+	 * è¯·æ±‚æŠ›å‡ºå¼‚å¸¸
 	 * @param msg
 	 * @return
 	 */
@@ -56,12 +56,12 @@ public class ResponseUtil {
 	public static ResponseEntity<String> unKonwException(){
 		CommonResponse res = new CommonResponse();
 		res.setCode(Constant.RESCODE_EXCEPTION);
-		res.setMsg("ÇëÉÔºóÔÙÊÔ");
+		res.setMsg("è¯·ç¨åå†è¯•");
 		return general(res);
 	}
 	
 	/**
-	 * ×Ô¶¨Òå
+	 * è‡ªå®šä¹‰
 	 * @param code
 	 * @param msg
 	 * @return

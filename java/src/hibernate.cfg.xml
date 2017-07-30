@@ -25,6 +25,7 @@
         <!-- 设为自动提交事务 -->
         <property name="autoConnection">true</property>
         <mapping class="com.ohh.model.Users" />
+        <mapping class="com.ohh.model.Todos" />
         
         
     </session-factory>  

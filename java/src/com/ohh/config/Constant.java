@@ -3,20 +3,20 @@ package com.ohh.config;
 public class Constant {
 
 	/**
-	 * Êı¾İÇëÇó·µ»ØÂë
+	 * æ•°æ®è¯·æ±‚è¿”å›ç 
 	 */
-	public static final int RESCODE_SUCCESS = 1000;				//³É¹¦
-	public static final int RESCODE_SUCCESS_MSG = 1001;			//³É¹¦(ÓĞ·µ»ØĞÅÏ¢)
-	public static final int RESCODE_EXCEPTION = 1002;			//ÇëÇóÅ×³öÒì³£
-	public static final int RESCODE_NOLOGIN = 1003;				//Î´µÇÂ½×´Ì¬
-	public static final int RESCODE_NOEXIST = 1004;				//²éÑ¯½á¹ûÎª¿Õ
-	public static final int RESCODE_NOAUTH = 1005;				//ÎŞ²Ù×÷È¨ÏŞ
+	public static final int RESCODE_SUCCESS = 1000;			//æˆåŠŸ	
+	public static final int RESCODE_SUCCESS_MSG = 1001;		//æˆåŠŸ(æœ‰è¿”å›ä¿¡æ¯)	
+	public static final int RESCODE_EXCEPTION = 1002;		//è¯·æ±‚æŠ›å‡ºå¼‚å¸¸	
+	public static final int RESCODE_NOLOGIN = 1003;			//æœªç™»é™†çŠ¶æ€
+	public static final int RESCODE_NOEXIST = 1004;			//æŸ¥è¯¢ç»“æœä¸ºç©º
+	public static final int RESCODE_NOAUTH = 1005;			//æ— æ“ä½œæƒé™
 	
 	/**
 	 * jwt
 	 */
 	public static final String JWT_ID = "jwt";
-	public static final String JWT_SECRET = "7786df7fc3a34e26a61c034d5ec8245d";
+	public static final String JWT_SECRET = "vue-koa-demo";
 	public static final int JWT_TTL = 60*60*1000;  //millisecond
 	public static final int JWT_REFRESH_INTERVAL = 55*60*1000;  //millisecond
 	public static final int JWT_REFRESH_TTL = 12*60*60*1000;  //millisecond

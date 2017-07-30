@@ -25,18 +25,18 @@ public class JwtUtil {
     private String profiles;
 	
 	/**
-	 * 由字符串生成加密key
+	 * 鐢卞瓧绗︿覆鐢熸垚鍔犲瘑key
 	 * @return
 	 */
 	public SecretKey generalKey(){
-		String stringKey = profiles+Constant.JWT_SECRET;
+		String stringKey = Constant.JWT_SECRET;
 		byte[] encodedKey = Base64.decodeBase64(stringKey);
 	    SecretKey key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
 	    return key;
 	}
 
 	/**
-	 * 创建jwt
+	 * 鍒涘缓jwt
 	 * @param id
 	 * @param subject
 	 * @param ttlMillis
@@ -62,7 +62,7 @@ public class JwtUtil {
 	}
 	
 	/**
-	 * 解密jwt
+	 * 瑙ｅ瘑jwt
 	 * @param jwt
 	 * @return
 	 * @throws Exception
@@ -76,13 +76,14 @@ public class JwtUtil {
 	}
 	
 	/**
-	 * 生成subject信息
+	 * 鐢熸垚subject淇℃伅
 	 * @param user
 	 * @return
 	 */
 	public static String generalSubject(Users user){
 		JSONObject jo = new JSONObject();
-		jo.put("userId", user.getId());
+		jo.put("id", user.getId());
+		jo.put("name", user.getUserName());
 		return jo.toJSONString();
 	}
 }

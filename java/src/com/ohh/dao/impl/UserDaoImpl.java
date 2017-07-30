@@ -2,8 +2,10 @@ package com.ohh.dao.impl;
 
 import com.ohh.dao.UserDao;
 import com.ohh.model.Users;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
@@ -69,12 +71,17 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public Users getUserInfoByName(String name){
 		Users user = new Users();
+		List<Users> list = new ArrayList<Users>();
 		try{
-			user = (Users) session.get(Users.class,name);
+			list = session.createQuery("from Users as u where u.userName= ?").setParameter(0, name).list();
+			if(list.size()>0){
+				return list.get(0);
+			}else {
+				return null;
+			}
 		}catch(Exception e){
 			e.printStackTrace();
-			return user;
+			return null;
 		}
-		return user;
 	}
 }
